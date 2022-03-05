@@ -1,0 +1,10 @@
+{
+    "name": "qob/dependency-injection-php",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Qob\\DependencyInjectionPhp\\": "src/"
+        }
+    },
+    "require": {}
+}
