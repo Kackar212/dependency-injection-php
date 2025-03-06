@@ -5,7 +5,9 @@ namespace Qob\DependencyInjectionPhp\Collection;
 use ArrayIterator;
 use Qob\DependencyInjectionPhp\Facades\DI;
 
-use function EasyCMS\Utils\dump;
+interface ICollection
+{
+}
 
 trait Collection
 {
@@ -85,11 +87,13 @@ trait Collection
     $this->storage[$key] = $value;
   }
 
-  function &offsetGet($offset)
+  function &offsetGet($offset): mixed
   {
     if ($this->offsetExists($offset)) {
       return $this->storage[$offset];
     }
+
+    return NULL;
   }
 
   function offsetUnset(mixed $offset): void
@@ -152,8 +156,7 @@ trait Collection
 
   function fromEntries(array|Collection $entries = null)
   {
-    $entries = $entries ?? $this->toArray();
-    if ($entries instanceof Collection) {
+    if (!is_array($entries) && method_exists($entries, 'toArray')) {
       $entries = $entries->toArray();
     }
 
